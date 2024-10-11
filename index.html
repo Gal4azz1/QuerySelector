@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Guess The Number!!</h1>
+    Ho generato un numero casuale... prova a indovinarlo!
+    Hai in totale 5 tentativi
+
+    <form action="" method="get">
+        <input  id="user" type="number" name="user_guess">
+        <input id="button" type="button" name="guess" value="indovina">
+    </form>
+
+
+
+    <script type="text/javascript">
+        function sanitize(number) {
+            number = parseInt(number)
+            return number
+        }
+    
+        function MagicNumber(min, max) {
+            let n = 0
+            n = Math.random()
+            n = n * (max - min)
+            n = parseInt(n) + min
+            console.log(n)
+            return n
+        }
+    
+        let min = 1
+        let max = 100
+        let tries = 0
+        let casualNumber = MagicNumber(min, max)
+        let win = false
+    
+        let button = document.querySelector("#button")
+    
+        button.addEventListener("click", function (event) {
+            console.log(event)
+    
+            let inputNumber = document.querySelector("#user").value
+    
+            inputNumber = sanitize(inputNumber)
+            console.log(inputNumber)
+    
+            if (inputNumber <= 0 || inputNumber > 100 || isNaN(inputNumber)) {
+                console.log("Inserire un numero valido tra 1 e 100")
+                return
+            }
+    
+            if (inputNumber === casualNumber) {
+                console.log("Bravo hai vinto!")
+                tries = 5
+                win = true
+            } else if (inputNumber > casualNumber) {
+                console.log("Numero troppo grande!")
+            } else {
+                console.log("Numero troppo piccolo!")
+            }
+    
+            tries += 1
+    
+            document.querySelector("#user").value = ""
+    
+            if (win === true) {
+                console.log("Hai indovinato il numero casuale!")
+            } else if (tries >= 5) {
+                console.log("Hai perso! Il numero casuale era: " + casualNumber)
+            }
+        })
+    </script>
+</body>
+</html>
