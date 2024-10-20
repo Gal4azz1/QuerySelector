@@ -3,19 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/index.css">
     <title>Document</title>
+
 </head>
 <body>
-    <h1>Guess The Number!!</h1>
-    Ho generato un numero casuale... prova a indovinarlo!
-    Hai in totale 5 tentativi
+    <div class="mid">
+        <header>
+            <h1 id="title">INDOVINA IL NUMERO</h1>
+        </header>
+        <div class="par1">
+            <ol>
+                <li>Il computer sceglierà segretamente un numero intero casuale tra 1 e 100.</li>
+                <li>Il tuo obiettivo è indovinare questo numero segreto nel minor numero di tentativi possibile.</li>
+                <li>Ad ogni tentativo, inserisci un numero e il computer ti darà un indizio:
+                </li>
+            </ol>
+            <ul>
+                <li>Se il tuo numero è troppo basso, ti dirà "Troppo basso, prova un numero più alto!"</li>
+                <li>Se il tuo numero è troppo alto, ti dirà "Troppo alto, prova un numero più basso!"</li>
+                <li>Se indovini il numero esatto, vincerai la partita!</li>
+            </ul>
+            <ol>
+                <li>Continua a fare tentativi finché non indovini il numero magico.</li>
+                <li>Alla fine del gioco, ti verrà mostrato il numero di tentativi che hai impiegato per indovinare.</li>
+                <li>Sfida te stesso a indovinare il numero con il minor numero di tentativi possibile!</li>
+            </ol>
+        </div> 
 
-    <form action="" method="get">
-        <input  id="user" type="number" name="user_guess">
-        <input id="button" type="button" name="guess" value="indovina">
-    </form>
+        
+        <div class="text1">Inserisci il numero magico</div>
 
+        <form action="" method="get">
+            <input  id="user" type="number" name="user_guess">
+            <br>
+            <input id="button" type="button" name="guess" value="INDOVINA">
+        </form>
 
+        <div id="text2">Non hai ancora scritto un numero!</div>
+        <div id="text3">Hai ancora <b>5</b> tentativi</div>
+
+    </div>
+        
+        
 
     <script type="text/javascript">
         function sanitize(number) {
@@ -34,9 +64,11 @@
     
         let min = 1
         let max = 100
-        let tries = 0
+        let tries = 5
         let casualNumber = MagicNumber(min, max)
         let win = false
+        let text1 = document.querySelector("#text2")
+        let text2 = document.querySelector("#text3")
     
         let button = document.querySelector("#button")
     
@@ -50,27 +82,40 @@
     
             if (inputNumber <= 0 || inputNumber > 100 || isNaN(inputNumber)) {
                 console.log("Inserire un numero valido tra 1 e 100")
+                text1.innerHTML="Non hai inserito nessun numero!";
+                text2.innerHTML="Inserisci un numero valido";
                 return
             }
     
             if (inputNumber === casualNumber) {
                 console.log("Bravo hai vinto!")
-                tries = 5
                 win = true
             } else if (inputNumber > casualNumber) {
                 console.log("Numero troppo grande!")
+                tries = tries - 1
+                text1.innerHTML="Numero troppo grande!";
+                text2.innerHTML="Hai ancora <b>" + tries + "</b> tentativi";
             } else {
                 console.log("Numero troppo piccolo!")
+                tries = tries - 1
+                text1.innerHTML="Numero troppo piccolo!";
+                text2.innerHTML="Hai ancora <b>" + tries + "</b> tentativi";
             }
     
-            tries += 1
+            
     
             document.querySelector("#user").value = ""
     
             if (win === true) {
                 console.log("Hai indovinato il numero casuale!")
-            } else if (tries >= 5) {
+                text1.innerHTML="Bravo hai vinto!";
+                text2.innerHTML="";
+                button.disabled = true;
+            } else if (tries <= 0) {
                 console.log("Hai perso! Il numero casuale era: " + casualNumber)
+                text1.innerHTML="Hai perso il numero casuale era: " + casualNumber;
+                text2.innerHTML="";
+                button.disabled = true;
             }
         })
     </script>
