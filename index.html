@@ -7,7 +7,7 @@
     <title>Document</title>
 
 </head>
-<body>
+<body id="bg" class="greenTheme">
     <div class="mid">
         <header>
             <h1 id="title">INDOVINA IL NUMERO</h1>
@@ -37,7 +37,7 @@
         <form action="" method="get">
             <input  id="user" type="number" name="user_guess">
             <br>
-            <input id="button" type="button" name="guess" value="INDOVINA">
+            <input id="button" type="button" name="guess" class="buttonTheme" value="INDOVINA">
         </form>
 
         <div id="text2">Non hai ancora scritto un numero!</div>
@@ -69,7 +69,7 @@
         let win = false
         let text1 = document.querySelector("#text2")
         let text2 = document.querySelector("#text3")
-    
+        let bg = document.querySelector("#bg")
         let button = document.querySelector("#button")
     
         button.addEventListener("click", function (event) {
@@ -101,6 +101,14 @@
                 text1.innerHTML="Numero troppo piccolo!";
                 text2.innerHTML="Hai ancora <b>" + tries + "</b> tentativi";
             }
+
+            if (tries === 3){
+                bg.classList.add("yellowTheme")
+                bg.classList.remove("greenTheme")
+            }else if (tries === 1){
+                bg.classList.add("redTheme")
+                bg.classList.remove("yellowTheme")
+            }
     
             
     
@@ -111,11 +119,19 @@
                 text1.innerHTML="Bravo hai vinto!";
                 text2.innerHTML="";
                 button.disabled = true;
+                bg.classList.remove("greenTheme")
+                bg.classList.remove("yellowTheme")
+                bg.classList.remove("redTheme")
+                bg.classList.add("greenTheme")
+                
+
             } else if (tries <= 0) {
                 console.log("Hai perso! Il numero casuale era: " + casualNumber)
                 text1.innerHTML="Hai perso il numero casuale era: " + casualNumber;
                 text2.innerHTML="";
                 button.disabled = true;
+                button.classList.add("redTheme")
+                button.classList.remove("buttonTheme")
             }
         })
     </script>

@@ -47,7 +47,6 @@
     font-family: 'Inter';
     text-align: center;
     border-style: hidden;
-    background: #3AE3A8;
 }
 
 body{
@@ -64,3 +63,27 @@ body{
     font-size: 16px;
     font-family: "Inter";
 }
+
+.greenTheme{
+    background-color: green;
+}
+
+.yellowTheme{
+    background-color: yellow;
+}
+
+.redTheme{  
+    background-color: red;
+}
+
+
+#bg{
+    transition: all  5s;  
+}
+
+.buttonTheme{
+    background: #3AE3A8;
+}
+
+
+
